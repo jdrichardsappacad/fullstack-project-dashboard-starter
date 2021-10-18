@@ -160,10 +160,10 @@ beneath the declaration.
 
 ## Phase 6: ProductDetail Component
 
-You are going to want to map out all of the products using the `ProductDetail`
-Component as a child inside the `Products` component. The `ProductDetail`
-component should take the id, image, name, and price as props and render
-everything inside a wrapper div like below:
+You now want to map out all of the products in your JSX. Yoo will do this by
+using the `ProductDetail` Component as a child that will be nested inside the
+`Products` component. The `ProductDetail` component should take the id, image,
+name, and price as props and render everything inside a wrapper div like below:
 
 ![product-detail][product-detail-1]
 
@@ -174,13 +174,13 @@ Now in your `Products` Component, map through your products using the
 
 ![products-2][products-2]
 
-Remember to account for the fact that there will be no values on the first
-render. You can use the [optional
-chaining][op-chain]
-operator to handle this behavior. You should now be able to render all of your
-products in the route '/' with the Products Component.
+Remember that every map function must have a [key][lists-keys] for indexing.
 
-## Phase 2: Create A Product
+Remember to account for the fact that there will be no values on the first
+render. You can use the [optional chaining][op-chain] operator to handle this
+behavior. You should now be able to render all of your products using the `/` route.
+
+## Phase 7: Create A Product
 
 Now it is time for you to create a product.
 
@@ -243,3 +243,4 @@ the title and/or price of a product using it's id.
 [dashboard-1]: https://jd-image-upload.s3.amazonaws.com/product-dashboard.gif
 [proxy]: https://create-react-app.dev/docs/proxying-api-requests-in-development/
 [op-chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+[lists-keys]: https://reactjs.org/docs/lists-and-keys.html
