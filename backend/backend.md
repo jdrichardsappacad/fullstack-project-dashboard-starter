@@ -311,7 +311,7 @@ in `app.js` to parse the body content's JSON and access the `req.body`.
 
 Now that you are taking in data, you'll need to validate that data. Import
 `check` and `validationResult` from `express-validator`. Use the
-`express-validator` library to check that the `message` value is present
+`express-validator` library to check that the `image`, `name`, and `price` values are present.
 
 You'll also need to handle your validation errors. In previous projects, you've
 been handling validations in each of the route handlers. Today, let's DRY up our
