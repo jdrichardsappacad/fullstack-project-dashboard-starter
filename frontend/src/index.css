@@ -1,0 +1,117 @@
+/* TODO Add site wide styles */
+/* TODO Add site wide styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
+
+*,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', 'Arial', non-serif;
+}
+
+img {
+  width: 120px;
+  height: 120px;
+  margin: 10px 0 25px 0;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  margin: 15px 10px 0 0;
+  color: rgb(249, 246, 246);
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  background: #416a59;
+  padding: 20px;
+}
+
+li {
+  color: white;
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+  padding: 0 15px 0 15px;
+  color: white;
+  font-size: 1.2em;
+}
+
+a:hover {
+  color: #b5e494;
+  transition: 1s;
+}
+
+h3 {
+  margin-left: 30px;
+}
+
+input {
+  display: block;
+  border: 0.5px solid lightgray;
+  flex-direction: column;
+  margin: 10px 0 10px 30px;
+  width: 50%;
+  padding: 5px;
+}
+
+.products {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin: 0 30px 50px 0;
+  padding: 20px;
+}
+
+.delete-button {
+  background: #39395f;
+  transition: 0.5s;
+}
+
+.delete-button:hover {
+  background: #484879;
+}
+
+.update-button {
+  background: #73a24e;
+  transition: 0.5s;
+}
+
+.update-button:hover {
+  background: #7ba45c;
+}
+
+.submit-button {
+  color: black;
+  font-weight: bold;
+  margin-left: 30px;
+  padding: 0 5px 0 5px;
+}
+
+.add-product {
+  margin-top: 50px;
+}
+
+.product-title {
+  font-weight: bold;
+  color: gray;
+}
