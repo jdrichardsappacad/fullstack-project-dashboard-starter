@@ -6,13 +6,8 @@ You will now create the Frontend for your Product Dashboard.
 
 ## Phase 0: Getting Started
 
-Inside your product directory, on the same level as your backend, clone the
-frontend starter from [address]. Change the name of this directory to `frontend`
-
-So you should now have a `frontend` and a `backend` directory.
-
-Test your frontend by navigating into your directory and running `npm install`
-and then `npm start`.
+`cd` into your frontend directory and run `npm install`.
+Then run `npm start` to confirm that your frontend runs correctly.
 
 ### Explore the frontend application
 
