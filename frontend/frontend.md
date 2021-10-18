@@ -188,7 +188,7 @@ after the `products` variable? You can use the [optional chaining][op-chain]
 operator to conditionally render your JSX, only, if the variable has a value.
 You should now be able to render all of your products using the `/` route.
 
-## Phase 7: Create A Product u
+## Phase 7: Create A Product
 
 Next, you will create a product.
 
