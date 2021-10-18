@@ -175,10 +175,16 @@ Now in your `Products` Component, map through your products using the
 ![products-2][products-2]
 
 Remember that every map function must have a [key][lists-keys] for indexing.
+Also, the key prop is not a prop that will be passed to the next component. If
+you want that value passed you must also, separately, pass it as a prop.
 
-Remember to account for the fact that there will be no values on the first
-render. You can use the [optional chaining][op-chain] operator to handle this
-behavior. You should now be able to render all of your products using the `/` route.
+### Optional Chaining
+
+You need to account for the fact that there will be no values on the first
+render. useEffect only runs after the render. Notice above how you added the `?`
+after the `products` variable? You can use the [optional chaining][op-chain]
+operator to conditionally render your JSX, only, if the variable has a value.
+You should now be able to render all of your products using the `/` route.
 
 ## Phase 7: Create A Product
 
