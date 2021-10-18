@@ -6,8 +6,9 @@ You will now create the Frontend for your Product Dashboard.
 
 ## Phase 0: Getting Started
 
-`cd` into your frontend directory and run `npm install`.
+`cd` into your `frontend` directory and run `npm install`.
 Then run `npm start` to confirm that your frontend runs correctly.
+If it does your browser should simply say `App Component`.
 
 ### Explore the frontend application
 
@@ -15,7 +16,7 @@ Your frontend currently contains:
 
 - `index.js` at the root: You will notice that `BrowserRouter` has already been
   included.
-- `App.js`: This component will handle your Navigation Component and your
+- `App.js`: This component will handle your Navigation component and your
   routing.
 - `store` directory: Your store boilerplate in the `index.js` file has been
   supplied for you except for the reducer that you will add.
@@ -45,28 +46,31 @@ code below.
 
 You will now be able to make fetch calls to your backend using a relative path.
 
-### Routes
+### Phase 1: Routes
 
-Now create routes and paths for the components that have already been included.
-You want your Navigation to always render at the top of the screen. You want the
-Product Component or the `CreateProduct` Component to render based on your link
-choice in the Navbar.
+Create routes and paths for the components that have already been included.
 
-Go to the Navigation Component. Create a `ul` with 2 `li`s. Each `li` should
-contain a Navlink. The first `li` should have a `Navlink` for the url `'/'`
-which leads to the **Products** component. The second `li` should have a
+- You want your Navigation to always render at the top of the screen.
+- You want the Product component or the `CreateProduct` component to render
+  based on your link choice in the Navbar.
+
+Go to the Navigation component. Create a `ul` with 2 `li`s. Each `li` should
+contain a Navlink.
+The first `li` should have a `Navlink` for the url `'/'`
+which leads to the **Products** component.
+The second `li` should have a
 `NavLink` for the url `/create` which is for the **CreateProduct** component
 
 Now go to your `App.js` and set up the routes for these Navlinks. Remove the
-default code but leave the Fragments. Add your Navigation component to the jsx.
-Beneath the Navigation component create the routes for the Products and
+default code but leave the Fragments. Add your Navigation component to the JSX.
+Beneath the Navigation component, create the routes for the Products and
 `CreateProduct` components. Make sure the route for the Products component is an
 exact path.
 
 Test your links in the browser. You should now be able to click on each option
 in the Navbar and see the page render the corresponding component.
 
-### Store
+### Phase 2: Store
 
 In the `products.js` file of your store directory, create a `productReducer`
 with an empty object as the `initialState`.
