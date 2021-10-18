@@ -12,10 +12,10 @@ When you have completed the first part of the project, your application should
 have the following features:
 
 1. A default "/" GET route.
-2. A "/products" GET route to fetch an index of products.
-3. A "/products" POST route to create products.
-4. A "/products/:id" PUT route to update products.
-5. A "/products/:id" DELETE route to delete products.
+2. A "/api/products" GET route to fetch an index of products.
+3. A "/api/products" POST route to create products.
+4. A "/api/products/:id" PUT route to update products.
+5. A "/api/products/:id" DELETE route to delete products.
 
 ## Phase 0: Initialize project
 
@@ -148,10 +148,12 @@ Notice that your skeleton already has a basic Express application set up in
 `app.js`. It's time for you to set up the routers for your project.
 
 Create a `routes` module by creating a `routes` directory in the root of your
-backend directory. Within your `routes` folder, create an `index.js` file for
-your default router and a `products.js` file for your product routers. In both
-files, begin by requiring `express` and creating a `router` with
-`express.Router()`. Lastly, make sure you export the routers you just created.
+backend directory. Within your `routes` folder, create an `index.js` file and an
+`api` directory, and in that directory, create an `index.js` file for your
+default router and a `products.js` file for your products routers. In both
+`index.js` files and the `api/products.js`, begin by requiring `express` and
+creating a `router` with `express.Router()`. Lastly, make sure you export the
+routers you just created.
 
 A majority of RESTful APIs serve data in a JSON format. Let's do the same for
 this project! To do this, update your `app.js` file to have your application
@@ -160,10 +162,12 @@ request body content formatted in JSON so that it is available via the
 `req.body` property.
 
 Lastly, in order to connect to the routes modules you have just created, import
-your `./routes/index` file as the `indexRouter` and import your
-`./routes/products` file as the `productsRouter`. Make sure your application is
-using the `/` route with the `indexRouter` as well as the `/products` route with
-the `productsRouter`.
+your `./routes` directory as `routes`. Make sure your application is using the
+`/` route with the `routes`. In the `index.js` file in the `routes` directory,
+import the router from the `api/index.js` file and use it at the `/api` route.
+In the `api/index.js` file, import the router from the `api/products.js` file
+and use it at the `/products` route in that file. This will put the router in
+the `api/products.js` file at the `/api/products` routes.
 
 ### Creating test routes
 
@@ -171,9 +175,11 @@ Let's get started in the `./routes/index.js` file. Move your GET route for `/`
 from `app.js` into your `./routes/index.js` file. Update the route to use
 `res.json()` in order to render a JSON response of `message: "test root index"`.
 
-Now you'll add a test route in your `./routes/products.js`. Create a route
-that handles a GET request to the `/` path. Have your result `send` a JSON
-response of `message: "test products index"`.
+Now you'll add a test route in your `./routes/api/index.js` and
+`./routes/api/products.js`. Create a route that handles a GET request to the
+`/api` and a route that handles a GET request to the `/api/products`. path. Have
+your result `send` a JSON response of `message: "test api index"` and `message:
+"test products index"`, respectively.
 
 ### Testing requests on Postman
 
@@ -182,21 +188,24 @@ requests.
 
 ![using-postman][postman-1]
 
-When sending a GET request to `localhost:8080/`, you should see JSON with your
+When sending a GET request to `localhost:5000/`, you should see JSON with your
 "test index root" message in the body response. When sending a GET request to
-`localhost:8080/products`, you should see JSON with your "test products index"
-message in the body response.
+`localhost:5000/api`, you should see JSON with your "test api index" message in
+the body response. When sending a GET request to `localhost:5000/api/products`,
+you should see JSON with your "test products index" message in the body
+response.
 
-Note that if you use your browser to navigate to `localhost:8080/` and
-`localhost:8080/products`, you'll see the same response as in Postman.
+Note that if you use your browser to navigate to `localhost:5000/`,
+`localhost:5000/api` and `localhost:5000/api/products`, you'll see the same
+response as in Postman.
 
 ## Phase 3: Set up product routes
 
-Now you'll add your Product routes in your `./routes/products.js`. Begin by
-requiring your `db` from your `../db/models` directory:
+Now you'll add your Product routes in your `./routes/api/products.js`. Begin by
+requiring your `db` from your `../../db/models` directory:
 
 ```js
-const db = require('../db/models');
+const db = require('../../db/models');
 ```
 
 Now destructure your `Product` model from the `db` you have just imported:
@@ -215,10 +224,10 @@ methods to set up the basic CRUD functionalities for products:
 - `Product.update()` to update a product in your database. (Update)
 - `Product.destroy()` to delete a product from your database. (Delete)
 
-### GET /products
+### GET /api/products
 
 It's time to set up a GET `/` route to fetch all of your seeded products when
-sending a GET request to `localhost:8080/products`. Since you'll be awaiting a
+sending a GET request to `localhost:5000/api/products`. Since you'll be awaiting a
 database fetch, let's bring back your `asyncHandler` function to help you catch
 errors in a DRY way!
 
@@ -234,12 +243,12 @@ Product model method to use.
 Lastly, remember to render the products you have fetched from your database in
 JSON by using `res.json({ products })`.
 
-### GET /products/:id
+### GET /api/products/:id
 
 Now you'll set up the GET `/:id(\\d+)` route to read a specific product when
-sending a GET request to `localhost:8080/products/:id`. Parse the `productId`
-from your `req.params` object and use your `productId` to fetch a specific
-product from the database.
+sending a GET request to `localhost:5000/api/products/:id`. Parse the
+`productId` from your `req.params` object and use your `productId` to fetch
+a specific product from the database.
 
 Note that the `app` module contains the following middleware function to catch
 unhandled requests and pass a `404` error to the global error handler:
@@ -293,10 +302,10 @@ function call into the `next` method to invoke the global error handler.
 
 Take a moment to test your route and error handling in Postman.
 
-### POST /products
+### POST /api/products
 
 Set up a POST `/` route to create a new product by sending a POST request to
-`localhost:8080/products`. Now that you will take in JSON data to handle a
+`localhost:5000/api/products`. Now that you will take in JSON data to handle a
 request, remember that your application is using the `express.json()` middleware
 in `app.js` to parse the body content's JSON and access the `req.body`.
 
@@ -394,9 +403,10 @@ request through the image below.
 Take a moment to also test your error handling. You should see an error response
 in JSON upon submitting bad data (i.e. an empty `message` field). Notice that
 your error response has the following properties: a `status` of "400", a `title`
-of "Bad request.", and an array of `errors`. Make sure that you see a `400 Bad Request` error if there are failing data validations.
+of "Bad request.", and an array of `errors`. Make sure that you see a `400 Bad
+Request` error if there are failing data validations.
 
-### PUT /products/:id
+### PUT /api/products/:id
 
 Set up a PUT `/:id(\\d+)` route to update a product. Begin by parsing the
 product id within your `req.params` object and using the parsed `productId` to
@@ -404,32 +414,33 @@ fetch the product to update. If you have a valid product, await the update and
 then render the updated product in JSON format.
 
 If you have not fetched a valid product, use the same `404` error handling that
-the `GET /products/:id` route used. Invoke your `productNotFoundError` function
-to generate a `404` error. Then pass the return value of the
+the `GET /api/products/:id` route used. Invoke your `productNotFoundError`
+function to generate a `404` error. Then pass the return value of the
 `productNotFoundError` function call into the `next` method.
 
-Make sure to also use the same `400` error handling that the `POST /products`
-route used. Validate your data and handle your validation errors, like in the
-POST route, to generate an error response upon receiving bad form data.
+Make sure to also use the same `400` error handling that the `POST
+/api/products` route used. Validate your data and handle your validation errors,
+like in the POST route, to generate an error response upon receiving bad form
+data.
 
 Test your PUT route:
 
-1. Use Postman to send a GET request to `localhost:8080/products/1` to view the
+1. Use Postman to send a GET request to `localhost:5000/api/products/1` to view the
    data of your first database product.
 2. Configure your "Content-Type" header as "application/json".
-3. Send a PUT request to `localhost:8080/products/1` with updated fields in the
+3. Send a PUT request to `localhost:5000/api/products/1` with updated fields in the
    `raw` request body.
 4. View your updated product in Postbird.
-5. Send a PUT request to `localhost:8080/products/1` with invalid data to check
+5. Send a PUT request to `localhost:5000/api/products/1` with invalid data to check
    the error handling.
 
 ### DELETE /products/:id
 
 Set up the DELETE `/:id(\\d+)` route for deleting a product by sending a DELETE
-request to `localhost:8080/products/:id`. Begin by parsing the product ID and
-using the id to find your product to delete. If a valid product is found, await
-to destroy the product and render a `204` response to confirm the deletion by
-using `res.status(204).end()`.
+request to `localhost:5000/api/products/:id`. Begin by parsing the product ID
+and using the id to find your product to delete. If a valid product is found,
+await to destroy the product and render a `204` response to confirm the deletion
+by using `res.status(204).end()`.
 
 If a valid product wasn't found, use the same `404` error handling that the GET
 and PUT routes used. Pass the product ID into your `productNotFoundError`
