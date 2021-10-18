@@ -193,11 +193,11 @@ Now it is time for you to create a product.
 ### Store
 
 In `product.js` of your store directory, create a thunk, `addProduct`, that adds
-a product to your database using the **POST** method on your `/products` backend
-route. `addProduct` should take a product as an argument and send the product to
-the backend using the POST method and the `/product` backend route. When the
-product returns you should dispatch the product to an action creator called
-`addOneProduct` Add that product to the payload in the returned object of
+a product to your database using the `POST` method on your `/api/products`
+backend route. `addProduct` should take a product as an argument and send the
+product to the backend using the POST method and the `/api/products` backend route.
+When the product returns you should dispatch the product to an action creator
+called `addOneProduct` Add that product to the payload in the returned object of
 `addOneProduct`. Use the `ADD_ONE_PRODUCT` case in your reducer to update the
 state by adding a product to your already flattened state object.
 
