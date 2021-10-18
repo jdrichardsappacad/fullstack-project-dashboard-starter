@@ -160,14 +160,16 @@ beneath the declaration.
 
 ## Phase 6: ProductDetail Component
 
-You now want to map out all of the products in your JSX. Yoo will do this by
-using the `ProductDetail` Component as a child that will be nested inside the
-`Products` component. The `ProductDetail` component should take the id, image,
-name, and price as props and render everything inside a wrapper div like below:
+You now want to list all of the products in your JSX using the `.map` array
+method. You will do this by using the `ProductDetail` Component as a child that
+will be nested inside the `Products` component. The `ProductDetail` component
+should take the id, image, name, and price as props and render everything inside
+a wrapper div like below:
 
 ![product-detail][product-detail-1]
 
-In order for CSS stylings to be applied correctly, classNames must be identical.
+In order for CSS stylings to be applied correctly, classNames in your project
+must be identical to the ones in the images.
 
 Now in your `Products` Component, map through your products using the
 `ProductDetail` Component like below.
@@ -188,7 +190,7 @@ You should now be able to render all of your products using the `/` route.
 
 ## Phase 7: Create A Product u
 
-Now it is time for you to create a product.
+Next, you will create a product.
 
 ### Store
 
@@ -201,7 +203,7 @@ route.
 When the product returns you should dispatch the product to an action creator
 called `addOneProduct` Add that product to the payload in the returned object of
 `addOneProduct`. Use the `ADD_ONE_PRODUCT` case in your reducer to update the
-state by adding a product to your already flattened state object.
+state. Add a product to your already flattened state object.
 
 ![add-product][add-product-1]
 
@@ -209,7 +211,7 @@ The case in your reducer should look similar to the example below:
 
 ![add-product-reducer][add-product-2]
 
-### CreateProduct Component
+## Phase 8: Add a Form in the `CreateProduct` Component
 
 You now want to create a form that will accept all values for your new product.
 For this project your image input will accept a string which can be grabbed from
@@ -222,8 +224,9 @@ listener that runs a helper function called `handleSubmit` Create your
 `handleSubmit` function. In your `handleSubmit` function create a `payload`
 object based on the component state which contains the image, name and price. It
 should dispatch the `addProduct` thunk from your `product.js` file in your store
-with values from the payload. Finally, it should navigate to the route '/' which
-renders all of the products.
+with values from the payload. Finally, it should navigate, afterwards, to the
+route '/' which renders all of the products. Don't forget to prevent the browser
+from reloading the page in your `handleSubmit` function!
 
 ![create-product][add-product-3]
 
