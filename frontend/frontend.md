@@ -36,7 +36,7 @@ Your frontend currently contains:
 ### Add a proxy
 
 To tell your frontend server to
-[proxy](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
+[proxy][proxy]
 any unknown requests to your backend server in development, add a proxy field to
 your `package.json`. Place the code beneath your devDependencies as shown in the
 code below.
@@ -136,7 +136,7 @@ Now in your `Products` Component, map through your products using the
 
 Remember to account for the fact that there will be no values on the first
 render. You can use the [optional
-chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
+chaining][op-chain]
 operator to handle this behavior. You should now be able to render all of your
 products in the route '/' with the Products Component.
 
@@ -201,3 +201,5 @@ the title and/or price of a product using it's id.
 [add-product-2]: https://jd-image-upload.s3.amazonaws.com/add-product-reducer.png
 [add-product-3]: https://jd-image-upload.s3.amazonaws.com/create-product.png
 [dashboard-1]: https://jd-image-upload.s3.amazonaws.com/product-dashboard.gif
+[proxy]: https://create-react-app.dev/docs/proxying-api-requests-in-development/
+[op-chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
