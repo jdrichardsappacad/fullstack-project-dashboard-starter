@@ -57,15 +57,15 @@ Create routes and paths for the components that have already been included.
 Go to the Navigation component. Create a `ul` with 2 `li`s. Each `li` should
 contain a Navlink.
 The first `li` should have a `Navlink` for the url `'/'`
-which leads to the **Products** component.
+which leads to the `Products` component.
 The second `li` should have a
-`NavLink` for the url `/create` which is for the **CreateProduct** component
+`NavLink` for the url `/create` which is for the `CreateProduct` component.
 
 Now go to your `App.js` and set up the routes for these Navlinks. Remove the
 default code but leave the Fragments. Add your Navigation component to the JSX.
-Beneath the Navigation component, create the routes for the Products and
-`CreateProduct` components. Make sure the route for the Products component is an
-exact path.
+Beneath the Navigation component, create the routes for the `Products` and
+`CreateProduct` components. Make sure the route for the `Products` component is
+an exact path.
 
 Test your links in the browser. You should now be able to click on each option
 in the Navbar and see the page render the corresponding component.
@@ -75,8 +75,12 @@ in the Navbar and see the page render the corresponding component.
 In the `products.js` file of your store directory, create a `productReducer`
 with an empty object as the `initialState`.
 
-Now go to your the `index.js` file in your store and add that `productReducer`
-to your `rootReducer`. It should be named `product`.
+```js
+const productReducer = (action = {}, state) => {};
+```
+
+Now go to your `index.js` file in your store and add that `productReducer`
+to your `rootReducer`. It should have a key of `product`.
 
 Test that your store is connected by going to your browser and looking in your
 Redux DevTools. Choose the **State** option in the DevTools and you should see a
@@ -84,40 +88,79 @@ product key with an empty object.
 
 ![initialState][devtools-1]
 
-## Phase 1: Fetch all of your Products
+## Phase 3: Fetch and Dispatch all of your Products Using a Thunk
 
 **\*\*You might want to run your backend server in order to test routes during**
 **this phase\*\***
 
 ### Store
 
-In the `product.js` in your store directory, create a thunk `getAllProducts`
-that fetches all products from your backend `/products` GET route.
-`getAllProducts` should dispatch the products to an action creator called
-`addProducts`. Create a `newState` variable inside your `productReducer`
-function. It should be an empty object. Create a case in your `productReducer`
-for `ADD_PRODUCTS`. Each product that has been retrieved should be stored in the
-newState object using the product id as the key and the product object as the
-value.
+In your store directory in the `product.js` file, create a thunk
+`getAllProducts` that fetches all products using the fetch web api. It should
+fetch the route`/api/products` GET route from your backend API
+
+```js
+export const getAllProducts = () => async (dispatch) => {
+  const response = await fetch('/api/products').json();
+};
+```
+
+Next, if the response objects key of ok is true, `getAllProducts` should
+dispatch the products to an action creator called `addProducts`. Your thunk
+should looks something like this now:
+
+```js
+export const getAllProducts = () => async (dispatch) => {
+  const response = await fetch('/api/products').json();
+  if (response.ok) dispatch(addProducts(response.products));
+};
+```
+
+### Reducer
+
+Create a `newState` variable inside your `productReducer` function before your
+switch statement. The newState variable assignment should be an empty object.
+Create a case in your `productReducer` for `ADD_PRODUCTS`. Each product that has
+been retrieved should be stored in the newState object using normalization. The
+product id should be the key and the product object should be the value.
 
 ![getAllProducts][reducer-1]
 
-### Products Component
+## Phase 4: Dispatch the Thunk in the Products Component using `useDispatch`
 
 In your Products component you now want to retrieve all of the products from the
-database. Dispatch `getAllProducts` after first render to fetch all of the
-products. This dispatch should occur only once.
+database. Import `useDispatch` from `react-redux`. After first render, dispatch
+the `getAllProducts` thunk in order to fetch all of the products. This dispatch
+should occur only once.
 
-Using `useSelector`, create a variable `products` that grabs the product slice
-of state and convert it to an array so the you can list your products in your
-jsx.
+After you have dispatched, use your Redux DevTools to check the state.
+You should now see all of the products that were seeded in the database.
+These products are now loaded into your Redux state...but we need to use that
+state in the `Product` component.
+
+## Phase 5: Listen for Changes in state using `useSelector`
+
+You will now use `useSelector` to listen for state changes to the products.
+Import `useSelector` from `react-redux`. Using `useSelector`, create a variable
+`products` that grabs the product slice of state and converts it to an array so
+the you can list your products in your JSX.
+
+```js
+ const products = useSelector((state) => Object.values(state.product));
+``
+
+Always test your variable to make sure you know the data type and the data you
+are receiving. One way is to log the variable `products` below where you have
+declared it, and take a look in your Browser DevTools console.
+
+
 
 You can test to see if you get your array by logging your products variable
 beneath the declaration.
 
 ![products-1][products-1]
 
-### ProductDetail Component
+## Phase 6: ProductDetail Component
 
 You are going to want to map out all of the products using the `ProductDetail`
 Component as a child inside the `Products` component. The `ProductDetail`
@@ -202,3 +245,4 @@ the title and/or price of a product using it's id.
 [dashboard-1]: https://jd-image-upload.s3.amazonaws.com/product-dashboard.gif
 [proxy]: https://create-react-app.dev/docs/proxying-api-requests-in-development/
 [op-chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+```
