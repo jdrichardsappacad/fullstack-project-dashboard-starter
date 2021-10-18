@@ -2,9 +2,10 @@
 
 ![Product Dashboard][dashboard-1]
 
-Today you'll begin building a fullstack Products API using Express, Sequelize, React and Redux! There will be two parts to this project:
+Today you'll begin building a fullstack Products API using Express, Sequelize,
+React and Redux! There will be two parts to this project:
 
-1. Creating an backend API using Express and Sequelize.
+1. Creating a backend API using Express and Sequelize.
 2. Creating a separate frontend application using React and Redux.
 
 When you have completed the first part of the project, your application should
@@ -30,10 +31,11 @@ Change the directory name `express-sequelize-starter` to `backend`.
 
 ### Initializing Sequelize
 
-The Sequelize CLI is already configured to know where your database configuration is located and where to
-generate the `models`, `seeders`, and `migrations` folders. The project skeleton
-has already taken care of configuration by including complete `.sequelizerc`,
-`./config/index.js`, and `./config/database.js` files.
+The Sequelize CLI is already configured to know where your database
+configuration is located and where to generate the `models`, `seeders`, and
+`migrations` folders. The project skeleton has already taken care of
+configuration by including complete `.sequelizerc`, `./config/index.js`, and
+`./config/database.js` files.
 
 ### Configuring your environment variables
 
@@ -57,16 +59,20 @@ Take a moment to create a database user and database:
 It's time to generate and migrate your Product model with the following commands:
 
 ```sh
-npx sequelize model:generate --name Product --attributes "image:string,name:string,price:integer"
+npx sequelize model:generate --name Product
+--attributes "image:string,name:string,price:integer"
 ```
 
 For this particular project, prices will only be represented as integers.
 
-In the model and migration files, make sure to configure the product `image`,`name` and `price` to not be nullable.  Also in your migrations file add to your createdAt and updatedAt values this key value pair
+In the model and migration files, make sure to configure the product
+`image`,`name` and `price` to not be nullable. Also in your migrations file add
+to your createdAt and updatedAt values this key value pair
 
 ```js
-defaultValue: Sequelize.fn('now')
+defaultValue: Sequelize.fn('now');
 ```
+
 in order to create a default value.
 Then run your migrations:
 
@@ -85,8 +91,8 @@ project:
 npx sequelize seed:generate --name test-products
 ```
 
-Go ahead and replace the contents of the `./db/seeders/[timestamp]-test-products.js`
-with the following code:
+Go ahead and replace the contents of the
+`./db/seeders/[timestamp]-test-products.js` with the following code:
 
 ```js
 'use strict';
@@ -100,20 +106,20 @@ module.exports = {
           image:
             'https://d0bb7f9bf11b5ad1a6b2-6175f06f5e3f64e15abbf67415a276ec.ssl.cf1.rackcdn.com/product-images/designlab/6-panel-unconstructed-brushed-cotton-caps-cap02-black1582879924.jpg',
           name: 'Cotton Ballcap',
-          price: 25
+          price: 25,
         },
         {
           image:
             'https://media.everlane.com/image/upload/c_fill,dpr_1.0,f_auto,g_face:center,q_auto,w_auto:100:1200/v1/i/c5838652_bd67.jpg',
           name: 'White Boot',
-          price: 115
+          price: 115,
         },
         {
           image:
             'https://cdni.llbean.net/is/image/wim/233155_467_41?hei=764&wid=665&resMode=sharp2&defaultImage=llbstage/A0211793_2',
           name: 'LL Bean Raincoat',
-          price: 75
-        }
+          price: 75,
+        },
       ],
       {}
     );
@@ -121,7 +127,7 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Products', null, {});
-  }
+  },
 };
 ```
 
@@ -141,10 +147,11 @@ client:
 Notice that your skeleton already has a basic Express application set up in
 `app.js`. It's time for you to set up the routers for your project.
 
-Create a `routes` module by creating a `routes` directory in the root of your backend directory. Within your `routes` folder, create an `index.js` file for your default
-router and a `products.js` file for your product routers. In both files, begin by
-requiring `express` and creating a `router` with `express.Router()`. Lastly,
-make sure you export the routers you just created.
+Create a `routes` module by creating a `routes` directory in the root of your
+backend directory. Within your `routes` folder, create an `index.js` file for
+your default router and a `products.js` file for your product routers. In both
+files, begin by requiring `express` and creating a `router` with
+`express.Router()`. Lastly, make sure you export the routers you just created.
 
 A majority of RESTful APIs serve data in a JSON format. Let's do the same for
 this project! To do this, update your `app.js` file to have your application
@@ -198,8 +205,8 @@ Now destructure your `Product` model from the `db` you have just imported:
 const { Product } = db;
 ```
 
-In this phase, you'll interact with your `Product` model by using built-in methods
-to set up the basic CRUD functionalities for products:
+In this phase, you'll interact with your `Product` model by using built-in
+methods to set up the basic CRUD functionalities for products:
 
 - `Product.findAll()` to fetch all of your database products. (Read)
 - `Product.findByPk()` to fetch a database product based on the `id` from your
@@ -230,9 +237,9 @@ JSON by using `res.json({ products })`.
 ### GET /products/:id
 
 Now you'll set up the GET `/:id(\\d+)` route to read a specific product when
-sending a GET request to `localhost:8080/products/:id`. Parse the `productId` from
-your `req.params` object and use your `productId` to fetch a specific product from
-the database.
+sending a GET request to `localhost:8080/products/:id`. Parse the `productId`
+from your `req.params` object and use your `productId` to fetch a specific
+product from the database.
 
 Note that the `app` module contains the following middleware function to catch
 unhandled requests and pass a `404` error to the global error handler:
@@ -261,27 +268,27 @@ app.use((err, req, res, next) => {
   res.json({
     title: err.title || 'Server Error',
     message: err.message,
-    stack: isProduction ? null : err.stack
+    stack: isProduction ? null : err.stack,
   });
 });
 ```
 
 Now let's go back to your GET route for a single product. Now that you have
-written a database fetch for a product, you want to render errors for products that
-were not found. Make sure your asynchronous route function is taking in `next`
-as a parameter. If you have fetched a valid product, render the product in JSON. If
-you have not fetched a valid product, you can use a function to generate an error
-before invoking the `next` method.
+written a database fetch for a product, you want to render errors for products
+that were not found. Make sure your asynchronous route function is taking in
+`next` as a parameter. If you have fetched a valid product, render the product
+in JSON. If you have not fetched a valid product, you can use a function to
+generate an error before invoking the `next` method.
 
-Let's define your error generator function for products not found. In your product
-route module, define a `productNotFoundError` function that takes in a product ID.
-Generate a new `Error` object with a message stating that a product of the
-given ID could not be found. Assign the error to have a `title` property to be
-"Product not found." and a `status` of `404`. At the end of the function, return
-the error.
+Let's define your error generator function for products not found. In your
+product route module, define a `productNotFoundError` function that takes in a
+product ID. Generate a new `Error` object with a message stating that a product
+of the given ID could not be found. Assign the error to have a `title` property
+to be "Product not found." and a `status` of `404`. At the end of the function,
+return the error.
 
-Now that the `productNotFoundError` function is written to generate and return an
-`Error` object, you can pass the return value of the `productNotFoundError`
+Now that the `productNotFoundError` function is written to generate and return
+an `Error` object, you can pass the return value of the `productNotFoundError`
 function call into the `next` method to invoke the global error handler.
 
 Take a moment to test your route and error handling in Postman.
@@ -319,7 +326,7 @@ If you do you have validation errors, use `array()` to transform your
 attribute to generate an `errors` array of error messages:
 
 ```js
-const errors = validationErrors.array().map((error) => error.msg);
+const errors = validationErrors.array().map(error => error.msg);
 ```
 
 After generating the `errors` array, you'll want to create a new `Error` object
@@ -345,7 +352,7 @@ const handleValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
 
   if (!validationErrors.isEmpty()) {
-    const errors = validationErrors.array().map((error) => error.msg);
+    const errors = validationErrors.array().map(error => error.msg);
 
     const err = Error('Bad request.');
     err.errors = errors;
@@ -369,8 +376,9 @@ app.use((err, req, res, next) => {
   res.json({
     title: err.title || 'Server Error',
     message: err.message,
-    errors: err.errors, // Includes our array of validation errors in our JSON response
-    stack: isProduction ? null : err.stack
+    // Includes our array of validation errors in our JSON response
+    errors: err.errors,
+    stack: isProduction ? null : err.stack,
   });
 });
 ```
@@ -390,10 +398,10 @@ of "Bad request.", and an array of `errors`. Make sure that you see a `400 Bad R
 
 ### PUT /products/:id
 
-Set up a PUT `/:id(\\d+)` route to update a product. Begin by parsing the product id
-within your `req.params` object and using the parsed `productId` to fetch the
-product to update. If you have a valid product, await the update and then render the
-updated product in JSON format.
+Set up a PUT `/:id(\\d+)` route to update a product. Begin by parsing the
+product id within your `req.params` object and using the parsed `productId` to
+fetch the product to update. If you have a valid product, await the update and
+then render the updated product in JSON format.
 
 If you have not fetched a valid product, use the same `404` error handling that
 the `GET /products/:id` route used. Invoke your `productNotFoundError` function
@@ -418,21 +426,22 @@ Test your PUT route:
 ### DELETE /products/:id
 
 Set up the DELETE `/:id(\\d+)` route for deleting a product by sending a DELETE
-request to `localhost:8080/products/:id`. Begin by parsing the product ID and using
-the id to find your product to delete. If a valid product is found, await to destroy
-the product and render a `204` response to confirm the deletion by using
-`res.status(204).end()`.
+request to `localhost:8080/products/:id`. Begin by parsing the product ID and
+using the id to find your product to delete. If a valid product is found, await
+to destroy the product and render a `204` response to confirm the deletion by
+using `res.status(204).end()`.
 
 If a valid product wasn't found, use the same `404` error handling that the GET
-and PUT routes used. Pass the product ID into your `productNotFoundError` function
-call to generate a `404` error. Then pass your newly generated `404` error into
-the `next` method to invoke the global error handler.
+and PUT routes used. Pass the product ID into your `productNotFoundError`
+function call to generate a `404` error. Then pass your newly generated `404`
+error into the `next` method to invoke the global error handler.
 
 Lastly, send a request with Postman to test your DELETE route and delete a
-product. Verify that the product was properly deleted by viewing your seeded objects
-with Postbird.
+product. Verify that the product was properly deleted by viewing your seeded
+objects with Postbird.
 
-**Your backend is complete! Now move on to the [frontend](frontend.md) instructions.**
+**Your backend is complete! Now move on to the [frontend](frontend.md)**
+**instructions.**
 
 [postbird-3]: https://jd-image-upload.s3.amazonaws.com/postbird3.png
 [postbird-3a]: https://jd-image-upload.s3.amazonaws.com/postbird4.png
