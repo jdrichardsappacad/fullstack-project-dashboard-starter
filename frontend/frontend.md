@@ -146,14 +146,12 @@ Import `useSelector` from `react-redux`. Using `useSelector`, create a variable
 the you can list your products in your JSX.
 
 ```js
- const products = useSelector((state) => Object.values(state.product));
-``
+const products = useSelector((state) => Object.values(state.product));
+```
 
 Always test your variable to make sure you know the data type and the data you
 are receiving. One way is to log the variable `products` below where you have
 declared it, and take a look in your Browser DevTools console.
-
-
 
 You can test to see if you get your array by logging your products variable
 beneath the declaration.
@@ -245,4 +243,3 @@ the title and/or price of a product using it's id.
 [dashboard-1]: https://jd-image-upload.s3.amazonaws.com/product-dashboard.gif
 [proxy]: https://create-react-app.dev/docs/proxying-api-requests-in-development/
 [op-chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
-```
