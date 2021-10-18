@@ -186,7 +186,7 @@ after the `products` variable? You can use the [optional chaining][op-chain]
 operator to conditionally render your JSX, only, if the variable has a value.
 You should now be able to render all of your products using the `/` route.
 
-## Phase 7: Create A Product
+## Phase 7: Create A Product u
 
 Now it is time for you to create a product.
 
@@ -195,7 +195,9 @@ Now it is time for you to create a product.
 In `product.js` of your store directory, create a thunk, `addProduct`, that adds
 a product to your database using the `POST` method on your `/api/products`
 backend route. `addProduct` should take a product as an argument and send the
-product to the backend using the POST method and the `/api/products` backend route.
+product to the backend using the POST method and the `/api/products` backend
+route.
+
 When the product returns you should dispatch the product to an action creator
 called `addOneProduct` Add that product to the payload in the returned object of
 `addOneProduct`. Use the `ADD_ONE_PRODUCT` case in your reducer to update the
