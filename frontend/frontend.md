@@ -40,7 +40,7 @@ code below.
   "devDependencies": {
     "redux-logger": "^3.0.6"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:5000"
 ```
 
 You will now be able to make fetch calls to your backend using a relative path.
