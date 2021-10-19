@@ -44,7 +44,10 @@ code below.
   "proxy": "http://localhost:8080"
 ```
 
-You will now be able to make fetch calls to your backend using a relative path.
+After adding the `proxy` key to your frontend's `package.json`, you'll need to
+restart your frontend server by using `CTRL-C` to stop the server, and running
+`npm start` to start the server again. You will now be able to make fetch calls
+to your backend using a relative path.
 
 ### Phase 1: Routes
 
