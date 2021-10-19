@@ -26,7 +26,6 @@ Begin by creating a directory called `Products`.
 git clone https://github.com/appacademy-starters/express-sequelize-starter.git
 ```
 
-Change the directory name `express-sequelize-starter` to `backend`.
 `cd` into the `backend` directory and install your packages with `npm install`.
 
 ### Initializing Sequelize
@@ -70,7 +69,7 @@ In the model and migration files, make sure to configure the product
 to your createdAt and updatedAt values this key value pair
 
 ```js
-defaultValue: Sequelize.fn('now');
+defaultValue: Sequelize.fn('now')
 ```
 
 in order to create a default value.
@@ -480,13 +479,14 @@ Lastly, send a request with Postman to test your DELETE route and delete a
 product. Verify that the product was properly deleted by viewing your seeded
 objects with Postbird.
 
-**Your backend is complete! Now move on to the [frontend](frontend.md)**
+**Your backend is complete! Now move on to the [frontend][frontend]**
 **instructions.**
 
 [postbird-3]: https://jd-image-upload.s3.amazonaws.com/postbird3.png
 [postbird-3a]: https://jd-image-upload.s3.amazonaws.com/postbird4.png
 [postbird-4]: https://appacademy-open-assets.s3-us-west-1.amazonaws.com/Module-Express/projects/api-tweets-project-postbird-4.png
 [postman-1]: https://jd-image-upload.s3.amazonaws.com/test-backend-initial.gif
-[postman-2a]: https://jd-image-upload.s3.amazonaws.com/postman1.gif
+[postman-2a]: https://pm-image-upload.s3.amazonaws.com/postman-post.gif
 [proxy-1]: https://create-react-app.dev/docs/proxying-api-requests-in-development/
 [dashboard-1]: https://jd-image-upload.s3.amazonaws.com/product-dashboard.gif
+[frontend]: ../frontend/README.md
