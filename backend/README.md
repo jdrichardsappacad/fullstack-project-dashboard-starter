@@ -188,15 +188,15 @@ requests.
 
 ![using-postman][postman-1]
 
-When sending a GET request to `localhost:5000/`, you should see JSON with your
+When sending a GET request to `localhost:8080/`, you should see JSON with your
 "test index root" message in the body response. When sending a GET request to
-`localhost:5000/api`, you should see JSON with your "test api index" message in
-the body response. When sending a GET request to `localhost:5000/api/products`,
+`localhost:8080/api`, you should see JSON with your "test api index" message in
+the body response. When sending a GET request to `localhost:8080/api/products`,
 you should see JSON with your "test products index" message in the body
 response.
 
-Note that if you use your browser to navigate to `localhost:5000/`,
-`localhost:5000/api` and `localhost:5000/api/products`, you'll see the same
+Note that if you use your browser to navigate to `localhost:8080/`,
+`localhost:8080/api` and `localhost:8080/api/products`, you'll see the same
 response as in Postman.
 
 ## Phase 3: Set up product routes
@@ -227,7 +227,7 @@ methods to set up the basic CRUD functionalities for products:
 ### GET /api/products
 
 It's time to set up a GET `/` route to fetch all of your seeded products when
-sending a GET request to `localhost:5000/api/products`. Since you'll be awaiting a
+sending a GET request to `localhost:8080/api/products`. Since you'll be awaiting a
 database fetch, let's bring back your `asyncHandler` function to help you catch
 errors in a DRY way!
 
@@ -246,7 +246,7 @@ JSON by using `res.json({ products })`.
 ### GET /api/products/:id
 
 Now you'll set up the GET `/:id(\\d+)` route to read a specific product when
-sending a GET request to `localhost:5000/api/products/:id`. Parse the
+sending a GET request to `localhost:8080/api/products/:id`. Parse the
 `productId` from your `req.params` object and use your `productId` to fetch
 a specific product from the database.
 
@@ -305,7 +305,7 @@ Take a moment to test your route and error handling in Postman.
 ### POST /api/products
 
 Set up a POST `/` route to create a new product by sending a POST request to
-`localhost:5000/api/products`. Now that you will take in JSON data to handle a
+`localhost:8080/api/products`. Now that you will take in JSON data to handle a
 request, remember that your application is using the `express.json()` middleware
 in `app.js` to parse the body content's JSON and access the `req.body`.
 
@@ -425,19 +425,19 @@ data.
 
 Test your PUT route:
 
-1. Use Postman to send a GET request to `localhost:5000/api/products/1` to view the
+1. Use Postman to send a GET request to `localhost:8080/api/products/1` to view the
    data of your first database product.
 2. Configure your "Content-Type" header as "application/json".
-3. Send a PUT request to `localhost:5000/api/products/1` with updated fields in the
+3. Send a PUT request to `localhost:8080/api/products/1` with updated fields in the
    `raw` request body.
 4. View your updated product in Postbird.
-5. Send a PUT request to `localhost:5000/api/products/1` with invalid data to check
+5. Send a PUT request to `localhost:8080/api/products/1` with invalid data to check
    the error handling.
 
 ### DELETE /products/:id
 
 Set up the DELETE `/:id(\\d+)` route for deleting a product by sending a DELETE
-request to `localhost:5000/api/products/:id`. Begin by parsing the product ID
+request to `localhost:8080/api/products/:id`. Begin by parsing the product ID
 and using the id to find your product to delete. If a valid product is found,
 await to destroy the product and render a `204` response to confirm the deletion
 by using `res.status(204).end()`.
