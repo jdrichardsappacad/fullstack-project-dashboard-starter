@@ -228,12 +228,14 @@ methods to set up the basic CRUD functionalities for products:
 
 It's time to set up a GET `/` route to fetch all of your seeded products when
 sending a GET request to `localhost:8080/api/products`. Since you'll be awaiting a
-database fetch, let's bring back your `asyncHandler` function to help you catch
-errors in a DRY way!
+database fetch, let's bring back your `asyncHandler` function.
 
-As a reminder, your `asyncHandler` takes in a `handler` function to return a
-middleware function that invokes the handler function with `req`, `res`, and
-`next`. It then chains on a `catch` statement by passing in the `next` function.
+Import the `asyncHandler` function from the `express-async-handler` package near
+the top of your `routes/api/products.js` file.
+
+```js
+const asyncHandler = require('express-async-handler');
+```
 
 Let's begin by updating the `products` GET route to `/`. Wrap the route function
 with your `asyncHandler` to be able to `await` the database fetch of all your
