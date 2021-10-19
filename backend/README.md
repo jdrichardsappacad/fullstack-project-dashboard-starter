@@ -69,7 +69,7 @@ In the model and migration files, make sure to configure the product
 to your createdAt and updatedAt values this key value pair
 
 ```js
-defaultValue: Sequelize.fn('now');
+defaultValue: Sequelize.fn('now')
 ```
 
 in order to create a default value.
