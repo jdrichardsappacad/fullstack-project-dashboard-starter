@@ -312,6 +312,14 @@ Set up a POST `/` route to create a new product by sending a POST request to
 request, remember that your application is using the `express.json()` middleware
 in `app.js` to parse the body content's JSON and access the `req.body`.
 
+In the body of this route handler, `create` a new Product by passing it an
+object with the data from the `req.body`. Go ahead and call `res.json` at the
+end of this route to respond to the request with the next `product`.
+
+```js
+res.json({ product });
+```
+
 Now that you are taking in data, you'll need to validate that data. Import
 `check` and `validationResult` from `express-validator`. Use the
 `express-validator` library to check that the `image`, `name`, and `price`
@@ -423,6 +431,9 @@ in JSON upon submitting bad data (i.e. an empty `message` field). Notice that
 your error response has the following properties: a `status` of "400", a `title`
 of "Bad request.", and an array of `errors`. Make sure that you see a `400 Bad
 Request` error if there are failing data validations.
+
+Don't forget to also test what happens when you submit valid data. The backend
+route should respond with the newly created product item without any errors.
 
 ### PUT /api/products/:id
 
