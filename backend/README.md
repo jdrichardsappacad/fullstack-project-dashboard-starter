@@ -26,7 +26,6 @@ Begin by creating a directory called `Products`.
 git clone https://github.com/appacademy-starters/express-sequelize-starter.git
 ```
 
-Change the directory name `express-sequelize-starter` to `backend`.
 `cd` into the `backend` directory and install your packages with `npm install`.
 
 ### Initializing Sequelize
