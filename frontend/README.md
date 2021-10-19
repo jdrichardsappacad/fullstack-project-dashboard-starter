@@ -1,77 +1,257 @@
-[Instructions](./frontend.md)
+# Product Dashboard Frontend
 
-# Create React App Template
+You will now create the Frontend for your Product Dashboard.
 
-A no-frills template from which to create React + Redux applications with
-[Create React App](https://github.com/facebook/create-react-app).
+![Product Dashboard][dashboard-1]
 
-```sh
-npx create-react-app my-app --template @appacademy/react-redux-v17 --use-npm
+## Phase 0: Getting Started
+
+`cd` into your `frontend` directory and run `npm install`.
+Then run `npm start` to confirm that your frontend runs correctly.
+If it does your browser should simply say `App Component`.
+
+### Explore the frontend application
+
+Your frontend currently contains:
+
+- `index.js` at the root: You will notice that `BrowserRouter` has already been
+  included.
+- `App.js`: This component will handle your Navigation component and your
+  routing.
+- `store` directory: Your store boilerplate in the `index.js` file has been
+  supplied for you except for the reducer that you will add.
+- `store -> product.js`: This is where you will add you `productReducer`, thunks
+  and action creators.
+- `Products`: This component will dispatch an action to get all of your products
+  and will also list all of your products.
+- `ProductDetail`: This component will describe the product as well as handle
+  the delete code.
+- `CreateProduct`: This component will contain a form to create a new product.
+- `index.css`: Styles have been created to use in this application.
+
+### Add a proxy
+
+To tell your frontend server to
+[proxy][proxy]
+any unknown requests to your backend server in development, add a proxy field to
+your `package.json`. Place the code beneath your devDependencies as shown in the
+code below.
+
+```js
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
+  },
+  "proxy": "http://localhost:8080"
 ```
 
-## Available Scripts
+You will now be able to make fetch calls to your backend using a relative path.
 
-In the project directory, you can run:
+### Phase 1: Routes
 
-### `npm start`
+Create routes and paths for the components that have already been included.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- You want your Navigation to always render at the top of the screen.
+- You want the Product component or the `CreateProduct` component to render
+  based on your link choice in the Navbar.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Go to the Navigation component. Create a `ul` with 2 `li`s. Each `li` should
+contain a Navlink.
+The first `li` should have a `Navlink` for the url `'/'`
+which leads to the `Products` component.
+The second `li` should have a
+`NavLink` for the url `/create` which is for the `CreateProduct` component.
 
-### `npm test`
+Now go to your `App.js` and set up the routes for these Navlinks. Remove the
+default code but leave the Fragments. Add your Navigation component to the JSX.
+Beneath the Navigation component, create the routes for the `Products` and
+`CreateProduct` components. Make sure the route for the `Products` component is
+an exact path.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Test your links in the browser. You should now be able to click on each option
+in the Navbar and see the page render the corresponding component.
 
-### `npm run build`
+### Phase 2: Store
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In the `products.js` file of your store directory, create a `productReducer`
+with an empty object as the `initialState`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```js
+const productReducer = (action = {}, state) => {};
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Now go to your `index.js` file in your store and add that `productReducer`
+to your `rootReducer`. It should have a key of `product`.
 
-### `npm run eject`
+Test that your store is connected by going to your browser and looking in your
+Redux DevTools. Choose the **State** option in the DevTools and you should see a
+product key with an empty object.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![initialState][devtools-1]
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Phase 3: Fetch and Dispatch all of your Products Using a Thunk
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**\*\*You might want to run your backend server in order to test routes during**
+**this phase\*\***
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Store
 
-## Learn More
+In your store directory in the `product.js` file, create a thunk
+`getAllProducts` that fetches all products using the fetch web api. It should
+fetch the route`/api/products` GET route from your backend API
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+export const getAllProducts = () => async (dispatch) => {
+  const response = await fetch('/api/products').json();
+};
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Next, if the response objects key of ok is true, `getAllProducts` should
+dispatch the products to an action creator called `addProducts`. Your thunk
+should looks something like this now:
 
-### Code Splitting
+```js
+export const getAllProducts = () => async (dispatch) => {
+  const response = await fetch('/api/products').json();
+  if (response.ok) dispatch(addProducts(response.products));
+};
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Reducer
 
-### Analyzing the Bundle Size
+Create a `newState` variable inside your `productReducer` function before your
+switch statement. The newState variable assignment should be an empty object.
+Create a case in your `productReducer` for `ADD_PRODUCTS`. Each product that has
+been retrieved should be stored in the newState object using normalization. The
+product id should be the key and the product object should be the value.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![getAllProducts][reducer-1]
 
-### Making a Progressive Web App
+## Phase 4: Dispatch the Thunk in the Products Component using `useDispatch`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+In your Products component you now want to retrieve all of the products from the
+database. Import `useDispatch` from `react-redux`. After first render, dispatch
+the `getAllProducts` thunk in order to fetch all of the products. This dispatch
+should occur only once.
 
-### Advanced Configuration
+After you have dispatched, use your Redux DevTools to check the state.
+You should now see all of the products that were seeded in the database.
+These products are now loaded into your Redux state...but we need to use that
+state in the `Product` component.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Phase 5: Listen for Changes in state using `useSelector`
 
-### Deployment
+You will now use `useSelector` to listen for state changes to the products.
+Import `useSelector` from `react-redux`. Using `useSelector`, create a variable
+`products` that grabs the product slice of state and converts it to an array so
+the you can list your products in your JSX.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```js
+const products = useSelector((state) => Object.values(state.product));
+```
 
-### `npm run build` fails to minify
+Always test your variable to make sure you know the data type and the data you
+are receiving. One way is to log the variable `products` below where you have
+declared it, and take a look in your Browser DevTools console.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can test to see if you get your array by logging your products variable
+beneath the declaration.
+
+![products-1][products-1]
+
+## Phase 6: ProductDetail Component
+
+You now want to list all of the products in your JSX using the `.map` array
+method. You will do this by using the `ProductDetail` Component as a child that
+will be nested inside the `Products` component. The `ProductDetail` component
+should take the id, image, name, and price as props and render everything inside
+a wrapper div like below:
+
+![product-detail][product-detail-1]
+
+In order for CSS stylings to be applied correctly, classNames in your project
+must be identical to the ones in the images.
+
+Now in your `Products` Component, map through your products using the
+`ProductDetail` Component like below.
+
+![products-2][products-2]
+
+Remember that every map function must have a [key][lists-keys] for indexing.
+Also, the key prop is not a prop that will be passed to the next component. If
+you want that value passed you must also, separately, pass it as a prop.
+
+### Optional Chaining
+
+You need to account for the fact that there will be no values on the first
+render. useEffect only runs after the render. Notice above how you added the `?`
+after the `products` variable? You can use the [optional chaining][op-chain]
+operator to conditionally render your JSX, only, if the variable has a value.
+You should now be able to render all of your products using the `/` route.
+
+## Phase 7: Create A Product
+
+Next, you will create a product.
+
+### Store
+
+In `product.js` of your store directory, create a thunk, `addProduct`, that adds
+a product to your database using the `POST` method on your `/api/products`
+backend route. `addProduct` should take a product as an argument and send the
+product to the backend using the POST method and the `/api/products` backend
+route.
+
+When the product returns you should dispatch the product to an action creator
+called `addOneProduct` Add that product to the payload in the returned object of
+`addOneProduct`. Use the `ADD_ONE_PRODUCT` case in your reducer to update the
+state. Add a product to your already flattened state object.
+
+![add-product][add-product-1]
+
+The case in your reducer should look similar to the example below:
+
+![add-product-reducer][add-product-2]
+
+## Phase 8: Add a Form in the `CreateProduct` Component
+
+You now want to create a form that will accept all values for your new product.
+For this project your image input will accept a string which can be grabbed from
+an image address on the internet.
+
+Create a form with 3 inputs, one for image, name and price as well as a submit
+button. Store the values of each input in it's own slice of component state.
+Remember to create controlled inputs. Your form element should take an event
+listener that runs a helper function called `handleSubmit` Create your
+`handleSubmit` function. In your `handleSubmit` function create a `payload`
+object based on the component state which contains the image, name and price. It
+should dispatch the `addProduct` thunk from your `product.js` file in your store
+with values from the payload. Finally, it should navigate, afterwards, to the
+route '/' which renders all of the products. Don't forget to prevent the browser
+from reloading the page in your `handleSubmit` function!
+
+![create-product][add-product-3]
+
+**Congratulations!** You have created a full data flow from React Component, to
+Redux, to Express, to Postgres and back!
+
+## Bonus One
+
+Delete a product using the button in the `ProductDetail` component, Redux, and
+the delete route on your backend. You should use the product id for this one.
+
+## Bonus Two
+
+Create an `UpdateComponent` component and code the complete data flow to update
+the title and/or price of a product using it's id.
+
+[devtools-1]: https://jd-image-upload.s3.amazonaws.com/devtools-initialstate.png
+[reducer-1]: https://jd-image-upload.s3.amazonaws.com/get-all-products-norm.png
+[products-1]: https://jd-image-upload.s3.amazonaws.com/products-1.png
+[products-2]: https://jd-image-upload.s3.amazonaws.com/products-2.png
+[product-detail-1]: https://jd-image-upload.s3.amazonaws.com/product-detail-1.png
+[add-product-1]: https://jd-image-upload.s3.amazonaws.com/add-product.png
+[add-product-2]: https://jd-image-upload.s3.amazonaws.com/add-product-reducer.png
+[add-product-3]: https://jd-image-upload.s3.amazonaws.com/create-product.png
+[dashboard-1]: https://jd-image-upload.s3.amazonaws.com/product-dashboard.gif
+[proxy]: https://create-react-app.dev/docs/proxying-api-requests-in-development/
+[op-chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+[lists-keys]: https://reactjs.org/docs/lists-and-keys.html
