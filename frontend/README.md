@@ -76,7 +76,7 @@ In the `products.js` file of your store directory, create a `productReducer`
 with an empty object as the `initialState`.
 
 ```js
-const productReducer = (action = {}, state) => {};
+const productReducer = (state = {}, action) => {};
 ```
 
 Now go to your `index.js` file in your store and add that `productReducer`
