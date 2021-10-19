@@ -345,7 +345,7 @@ After generating the `errors` array, you'll want to create a new `Error` object
 with a 400 `status` and title of "Bad request":
 
 ```js
-const err = Error('Bad request.');
+const err = new Error('Bad request.');
 err.errors = errors;
 err.status = 400;
 err.title = 'Bad request.';
