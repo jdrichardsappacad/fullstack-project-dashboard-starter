@@ -1,3 +1,3 @@
 # Express Sequelize Starter
 
-[Instructions][./backend.md]
+[Instructions](./backend.md)
