@@ -20,8 +20,8 @@ Your frontend currently contains:
   routing.
 - `store` directory: Your store boilerplate in the `index.js` file has been
   supplied for you except for the reducer that you will add.
-- `store -> product.js`: This is where you will add you `productReducer`, thunks
-  and action creators.
+- `store -> products.js`: This is where you will add you `productReducer`,
+  thunks and action creators.
 - `Products`: This component will dispatch an action to get all of your products
   and will also list all of your products.
 - `ProductDetail`: This component will describe the product as well as handle
@@ -98,7 +98,7 @@ product key with an empty object.
 
 ### Store
 
-In your store directory in the `product.js` file, create a thunk
+In your store directory in the `products.js` file, create a thunk
 `getAllProducts` that fetches all products using the fetch web api. It should
 fetch the route`/api/products` GET route from your backend API
 
@@ -197,8 +197,8 @@ Next, you will create a product.
 
 ### Store
 
-In `product.js` of your store directory, create a thunk, `addProduct`, that adds
-a product to your database using the `POST` method on your `/api/products`
+In `products.js` of your store directory, create a thunk, `addProduct`, that
+adds a product to your database using the `POST` method on your `/api/products`
 backend route. `addProduct` should take a product as an argument and send the
 product to the backend using the POST method and the `/api/products` backend
 route.
@@ -226,10 +226,10 @@ Remember to create controlled inputs. Your form element should take an event
 listener that runs a helper function called `handleSubmit` Create your
 `handleSubmit` function. In your `handleSubmit` function create a `payload`
 object based on the component state which contains the image, name and price. It
-should dispatch the `addProduct` thunk from your `product.js` file in your store
-with values from the payload. Finally, it should navigate, afterwards, to the
-route '/' which renders all of the products. Don't forget to prevent the browser
-from reloading the page in your `handleSubmit` function!
+should dispatch the `addProduct` thunk from your `products.js` file in your
+store with values from the payload. Finally, it should navigate, afterwards, to
+the route '/' which renders all of the products. Don't forget to prevent the
+browser from reloading the page in your `handleSubmit` function!
 
 ![create-product][add-product-3]
 
