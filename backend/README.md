@@ -19,13 +19,6 @@ have the following features:
 
 ## Phase 0: Initialize project
 
-Begin by creating a directory called `Products`.
-`cd` into the directory and clone the project skeleton:
-
-```sh
-git clone https://github.com/appacademy-starters/express-sequelize-starter.git
-```
-
 `cd` into the `backend` directory and install your packages with `npm install`.
 
 ### Initializing Sequelize
