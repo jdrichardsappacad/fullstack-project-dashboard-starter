@@ -104,7 +104,8 @@ fetch the route`/api/products` GET route from your backend API
 
 ```js
 export const getAllProducts = () => async (dispatch) => {
-  const response = await fetch('/api/products').json();
+  const response = await fetch('/api/products');
+  const data = await response.json();
 };
 ```
 
@@ -114,8 +115,9 @@ should looks something like this now:
 
 ```js
 export const getAllProducts = () => async (dispatch) => {
-  const response = await fetch('/api/products').json();
-  if (response.ok) dispatch(addProducts(response.products));
+  const response = await fetch('/api/products');
+  const data = await response.json();
+  if (response.ok) dispatch(addProducts(data.products));
 };
 ```
 
