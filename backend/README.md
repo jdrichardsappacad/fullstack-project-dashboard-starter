@@ -260,10 +260,10 @@ This ensures that if a client makes a request to a route that doesn't exist
 they'll receive an appropriate error message.
 
 Any error that occurs in your routes will be handled by the below global error
-handler so that error messages can be formatted and returned to the client in a
-consistent way. The error's title, message, and stacktrace is rendered in JSON.
-If your application is in production, the error will be rendered without the
-error stacktrace.
+handler so that error messages can be formatted and returned to the client in
+a consistent way. The error's title, message, and stack trace is rendered in
+JSON. If your application is in production, the error will be rendered without
+the error stack trace.
 
 ```js
 app.use((err, req, res, next) => {
