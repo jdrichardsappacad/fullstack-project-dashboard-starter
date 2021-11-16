@@ -154,12 +154,12 @@ request body content formatted in JSON so that it is available via the
 `req.body` property.
 
 Lastly, in order to connect to the routes modules you have just created, import
-your `./routes` directory as `routes`. Make sure your application is using the
-`routes` roueter at the `/` route after your app has used the `express.json()`
-middleware. In the `index.js` file in the `routes` directory, import the router
-from the `api/index.js` file and use it at the `/api` route. In the
-`api/index.js` file, import the router from the `api/products.js` file and use
-it at the `/products` route in that file. This will put the router in the
+your `./routes` directory as `routes` in the `app.js` file. Make sure your
+application is using the `routes` router after your app has used the
+`express.json()` middleware. In the `index.js` file in the `routes` directory,
+import the router from the `api/index.js` file and use it at the `/api` route.
+In the `api/index.js` file, import the router from the `api/products.js` file
+and use it at the `/products` route. This will put the router in the
 `api/products.js` file at the `/api/products` routes.
 
 ### Creating test routes
