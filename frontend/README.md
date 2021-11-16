@@ -58,13 +58,13 @@ Create routes and paths for the components that have already been included.
   based on your link choice in the Navbar.
 
 Go to the Navigation component. Create a `ul` with 2 `li`s. Each `li` should
-contain a Navlink.
-The first `li` should have a `Navlink` for the url `'/'`
+contain a NavLink.
+The first `li` should have a `NavLink` for the url `'/'`
 which leads to the `Products` component.
 The second `li` should have a
 `NavLink` for the url `/create` which is for the `CreateProduct` component.
 
-Now go to your `App.js` and set up the routes for these Navlinks. Remove the
+Now go to your `App.js` and set up the routes for these NavLinks. Remove the
 default code but leave the Fragments. Add your Navigation component to the JSX.
 Beneath the Navigation component, create the routes for the `Products` and
 `CreateProduct` components. Make sure the route for the `Products` component is
