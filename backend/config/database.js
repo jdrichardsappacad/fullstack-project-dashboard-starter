@@ -14,7 +14,4 @@ module.exports = {
     host,
     dialect: "postgres",
   },
-  test: {
-    dialect: "sqlite",
-  }
 };
